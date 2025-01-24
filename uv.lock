@@ -706,7 +706,7 @@ wheels = [
 ]
 
 [[package]]
-name = "template-python"
+name = "azure-updates"
 version = "0.0.1"
 source = { editable = "." }
 
