@@ -67,20 +67,22 @@ def parse_azure_updates(response_json: dict) -> list[AzureUpdate]:
 
 def write_azure_updates_to_file(updates: list[AzureUpdate], filename: str):
     with open(filename, "w") as file:
-        file.write("---\n")
-        file.write("theme: seriph\n")
-        file.write("background: https://cover.sli.dev\n")
-        file.write("title: Azure Updates\n")
-        file.write("info: |\n")
-        file.write("  ## Azure Updates\n")
-        file.write("  Presentation slides for Azure Updates\n")
-        file.write("  Learn more at [Azure Updates](https://azure.microsoft.com/en-us/updates/)\n")
-        file.write("class: text-center\n")
-        file.write("drawings:\n")
-        file.write("  persist: false\n")
-        file.write("mdc: true\n")
-        file.write("---\n\n")
-        file.write("# Azure Updates\n\n")
+        file.write(
+            "---\n"
+            "theme: seriph\n"
+            "background: https://cover.sli.dev\n"
+            "title: Azure Updates\n"
+            "info: |\n"
+            "  ## Azure Updates\n"
+            "  Presentation slides for Azure Updates\n"
+            "  Learn more at [Azure Updates](https://azure.microsoft.com/en-us/updates/)\n"
+            "class: text-center\n"
+            "drawings:\n"
+            "  persist: false\n"
+            "mdc: true\n"
+            "---\n\n"
+            "# Azure Updates\n\n"
+        )
         for update in updates:
             file.write(f"{'-' * 3}\n\n")
             file.write(f"# Title: {update.title}\n")

@@ -106,3 +106,7 @@ jupyterlab: ## run JupyterLab
 .PHONY: slides
 slides: ## generate slides
 	uv run python azure_updates/core.py
+
+.PHONY: run
+run: ## run
+	cd docs && pnpm run dev
