@@ -90,6 +90,39 @@ def write_azure_updates_to_file(updates: list[AzureUpdate], filename: str):
             file.write(f"- Created: {update.created}\n")
             file.write(f"- Description: {update.description}\n\n")
             file.write(f"- Links: {', '.join(update.links)}\n")
+            # Comment
+            # id: str
+            # product_categories: list[str]
+            # tags: list[str]
+            # products: list[str]
+            # general_availability_date: str | None
+            # preview_availability_date: str | None
+            # private_preview_availability_date: str | None
+            # title: str
+            # description: str
+            # links: list[str]
+            # status: str
+            # created: str
+            # modified: str
+            # availabilities: list[str]
+            file.write(
+                "<!--"
+                f"ID: {update.id}\n\n"
+                f"Product Categories: {update.product_categories}\n\n"
+                f"Tags: {update.tags}\n\n"
+                f"Products: {update.products}\n\n"
+                f"General Availability Date: {update.general_availability_date}\n\n"
+                f"Preview Availability Date: {update.preview_availability_date}\n\n"
+                f"Private Preview Availability Date: {update.private_preview_availability_date}\n\n"
+                f"Title: {update.title}\n\n"
+                f"Description: {update.description}\n\n"
+                f"Links: {update.links}\n\n"
+                f"Status: {update.status}\n\n"
+                f"Created: {update.created}\n\n"
+                f"Modified: {update.modified}\n\n"
+                f"Availabilities: {update.availabilities}\n\n"
+                "-->\n\n"
+            )
 
 
 if __name__ == "__main__":
