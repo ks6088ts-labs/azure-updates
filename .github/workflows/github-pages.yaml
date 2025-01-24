@@ -1,28 +1,58 @@
 name: github-pages
 on:
+  workflow_dispatch:
   push:
     branches:
-      - main
+      - "main"
+      - "feature/**"
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 jobs:
-  deploy:
+  slides:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Configure Git Credentials
+      - name: Set up uv
+        shell: bash
+        run: pipx install uv
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+      - name: Generate slides
+        shell: bash
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - uses: actions/setup-python@v5
+          make install-deps-dev
+          make slides
+
+      - uses: actions/setup-node@v4
         with:
-          python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      - uses: actions/cache@v4
+          node-version: "lts/*"
+      - name: Setup @antfu/ni
+        run: npm i -g @antfu/ni
+      - name: Install dependencies
+        run: |
+          cd docs
+          nci
+          nr build --base /${{github.event.repository.name}}/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-      - run: pip install mkdocs-material
-      - run: mkdocs gh-deploy --force
+          path: docs/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: slides
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
