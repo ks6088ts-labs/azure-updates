@@ -1,1 +1,1 @@
-# template-python
+# azure-updates

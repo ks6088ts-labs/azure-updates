@@ -48,7 +48,7 @@ ci-test: install-deps-dev format-check lint test ## run CI tests
 # Docker
 # ---
 DOCKER_REPO_NAME ?= ks6088ts
-DOCKER_IMAGE_NAME ?= template-python
+DOCKER_IMAGE_NAME ?= azure-updates
 DOCKER_COMMAND ?=
 
 # Tools
@@ -94,3 +94,15 @@ docs-serve: ## serve documentation
 
 .PHONY: ci-test-docs
 ci-test-docs: docs ## run CI test for documentation
+
+# ---
+# Project
+# ---
+
+.PHONY: jupyterlab
+jupyterlab: ## run JupyterLab
+	uv run jupyter lab
+
+.PHONY: run
+run: ## run
+	uv run python azure_updates/core.py
