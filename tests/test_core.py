@@ -1,15 +1,16 @@
 import logging
 
-from azure_updates.core import hello_world
+from azure_updates.core import call_azure_updates_api, parse_azure_updates
 
 
-def test_hello_world_verbose(caplog):
+def test_call_azure_updates_api(caplog):
     with caplog.at_level(logging.DEBUG):
-        hello_world(verbose=True)
-    assert "Hello World" in caplog.text
+        response_json = call_azure_updates_api(top=5)
+    assert response_json is not None
 
 
-def test_hello_world_non_verbose(caplog):
+def test_parse_azure_updates(caplog):
     with caplog.at_level(logging.DEBUG):
-        hello_world(verbose=False)
-    assert "Hello, world!" not in caplog.text
+        response_json = call_azure_updates_api(top=5)
+        azure_updates = parse_azure_updates(response_json=response_json)
+    assert len(azure_updates) == 5

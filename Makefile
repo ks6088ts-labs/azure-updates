@@ -94,3 +94,15 @@ docs-serve: ## serve documentation
 
 .PHONY: ci-test-docs
 ci-test-docs: docs ## run CI test for documentation
+
+# ---
+# Project
+# ---
+
+.PHONY: jupyterlab
+jupyterlab: ## run JupyterLab
+	uv run jupyter lab
+
+.PHONY: run
+run: ## run
+	uv run python azure_updates/core.py
