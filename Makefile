@@ -103,6 +103,6 @@ ci-test-docs: docs ## run CI test for documentation
 jupyterlab: ## run JupyterLab
 	uv run jupyter lab
 
-.PHONY: run
-run: ## run
+.PHONY: slides
+slides: ## generate slides
 	uv run python azure_updates/core.py

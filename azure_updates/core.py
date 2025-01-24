@@ -67,7 +67,21 @@ def parse_azure_updates(response_json: dict) -> list[AzureUpdate]:
 
 def write_azure_updates_to_file(updates: list[AzureUpdate], filename: str):
     with open(filename, "w") as file:
-        for i, update in enumerate(updates, start=1):
+        file.write("---\n")
+        file.write("theme: seriph\n")
+        file.write("background: https://cover.sli.dev\n")
+        file.write("title: Azure Updates\n")
+        file.write("info: |\n")
+        file.write("  ## Azure Updates\n")
+        file.write("  Presentation slides for Azure Updates\n")
+        file.write("  Learn more at [Azure Updates](https://azure.microsoft.com/en-us/updates/)\n")
+        file.write("class: text-center\n")
+        file.write("drawings:\n")
+        file.write("  persist: false\n")
+        file.write("mdc: true\n")
+        file.write("---\n\n")
+        file.write("# Azure Updates\n\n")
+        for update in updates:
             file.write(f"{'-' * 3}\n\n")
             file.write(f"# Title: {update.title}\n")
             file.write(f"- Product Categories: {', '.join(update.product_categories)}\n")
@@ -77,6 +91,6 @@ def write_azure_updates_to_file(updates: list[AzureUpdate], filename: str):
 
 
 if __name__ == "__main__":
-    response_json = call_azure_updates_api(top=5)
+    response_json = call_azure_updates_api(top=100)
     azure_updates = parse_azure_updates(response_json)
-    write_azure_updates_to_file(azure_updates, "azure_updates.md")
+    write_azure_updates_to_file(azure_updates, "docs/slides.md")

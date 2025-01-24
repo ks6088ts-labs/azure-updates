@@ -162,4 +162,3 @@ cython_debug/
 # Project
 *.env
 requirements.txt
-azure_updates.md
